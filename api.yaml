@@ -5,7 +5,7 @@ info:
 paths:
   /api/v1/auth:
     post:
-      summary: "Autorize user"
+      summary: "User authorization"
       operationId: "userAuthorization"
       requestBody:
         required: true
@@ -23,7 +23,7 @@ paths:
                 - password
       responses:
         '201':
-          description: "Authorization succes."
+          description: "Authorization success."
         '401':
           description: "Authorization failed."
   /api/v1/register:
@@ -59,15 +59,19 @@ paths:
     get:
       summary: "Logout user"
       operationId: "userLogout"
+      security:
+        - bearerAuth: []
       responses:
         '201':
-          description: "Registration succes."
+          description: "Registration success."
         '401':
           description: "Registration failed."
   /api/v1/profile/{id}:
     get:
-      summary: "Profile user"
-      operationId: "userpProfile"
+      summary: "User profile"
+      operationId: "userProfile"
+      security:
+        - bearerAuth: []
       parameters:
         - name: id
           required: true
@@ -89,3 +93,8 @@ paths:
           description: "Ok."
         '401':
           description: "Invalid token"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
