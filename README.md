@@ -10,4 +10,4 @@ docker-compose exec php /vendor/bin/phinx migrate
 ### Занести данные в таблицу ролей: 
 docker-compose exec php /vendor/bin/phinx seed:run
 
-#### Спецификация openApi находится в файле /project/api.yaml
+#### Спецификация openApi находится в файле api.yaml
