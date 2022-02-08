@@ -1,0 +1,40 @@
+version: "3.3"
+
+volumes:
+  pg_project:
+
+services:
+  web:
+    image: nginx:stable
+    ports:
+      - "8080:80"
+    volumes:
+      - ./web:/etc/nginx/conf.d
+      - ./app:/var/www/test.dev
+    links:
+      - php
+
+  pg_db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - ./pg_project:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  php:
+    build: ./app
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      SECRET_KEY: ${SECRET_KEY}
+      DB_HOST: ${DB_HOST}
+    volumes:
+      - ./app:/var/www/test.dev
+    expose:
+      - 9000

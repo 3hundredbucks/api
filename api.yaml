@@ -1,0 +1,91 @@
+openapi: 3.0.0
+info:
+  title: Simple API
+  version: '1.0'
+paths:
+  /api/v1/auth:
+    post:
+      summary: "Autorize user"
+      operationId: "userAuthorization"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        '201':
+          description: "Authorization succes."
+        '401':
+          description: "Authorization failed."
+  /api/v1/register:
+    post:
+      summary: "Register user"
+      operationId: "userRegister"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                name:
+                  type: string
+                password:
+                  type: string
+                role:
+                  type: string
+              required:
+                - email
+                - name
+                - password
+                - role
+      responses:
+        '201':
+          description: "Registration success."
+        '401':
+          description: "Registration failed."
+  /api/v1/logout:
+    get:
+      summary: "Logout user"
+      operationId: "userLogout"
+      responses:
+        '201':
+          description: "Registration succes."
+        '401':
+          description: "Registration failed."
+  /api/v1/profile/{id}:
+    get:
+      summary: "Profile user"
+      operationId: "userpProfile"
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+
+      responses:
+        '201':
+          description: "Ok."
+        '401':
+          description: "Not found."
+  /api/v1/postman/auth:
+    get:
+      summary: "Postman auth"
+      operationId: "authPostman"
+      responses:
+        '201':
+          description: "Ok."
+        '401':
+          description: "Invalid token"
