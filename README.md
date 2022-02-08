@@ -1,11 +1,11 @@
 ## Для работы с проектом необходимо выполнить следующее:
 ### Собрать docker образ: 
 docker-compose build
-### Создать контейнеры: 
+### Запустить контейнеры: 
 docker-compose up -d
-### Создать папку vendor и обновить зависимости: 
-docker-compose exec php composer update
-### Создать таблицы базы данных: 
+### Установка зависимостей: 
+docker-compose exec php composer install
+### Применить миграции БД: 
 docker-compose exec php /vendor/bin/phinx migrate
 ### Занести данные в таблицу ролей: 
 docker-compose exec php /vendor/bin/phinx seed:run
